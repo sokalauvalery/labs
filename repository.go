@@ -107,13 +107,6 @@ func (st *storage) CancelOperations(ctx context.Context, limit int, cfn cancelFu
 		operations = append(operations, update)
 	}
 
-	// var oldBalance float64
-	// row := tx.QueryRow("SELECT balance FROM users WHERE id = ?", defaultUserUUID)
-	// if err = row.Scan(&oldBalance); err != nil {
-	// 	tx.Rollback()
-	// 	return fmt.Errorf("failed to scan user balance %w", err)
-	// }
-
 	updatesToCancel, balance := cfn(operations)
 	if len(updatesToCancel) == 0 {
 		println("no cancel needed")
